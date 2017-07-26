@@ -26,9 +26,6 @@ gem 'pg'
 # for logins
 gem 'devise'
 
-# soft delete of records
-gem 'acts_as_paranoid'
-
 # roles and permissions
 gem 'pundit'
 
