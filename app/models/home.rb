@@ -3,6 +3,7 @@
 class Home < ActiveRecord::Base
   belongs_to :owner, class_name: 'User'
   belongs_to :home_type
+  belongs_to :suburb
 
   has_many :rooms
   has_many :messages, through: :sensors
@@ -23,5 +24,9 @@ class Home < ActiveRecord::Base
     sensor = sensors.find_by(node_id: node_id)
     sensor = Sensor.create!(home_id: id, node_id: node_id) unless sensor
     sensor
+  end
+
+  def home_suburb_name
+    suburb&.name
   end
 end

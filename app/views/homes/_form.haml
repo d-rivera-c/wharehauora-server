@@ -1,5 +1,6 @@
 %fieldset
   = f.text_field :name, type: 'text', placeholder: 'Name of home'
+  = f.text_field :homesuburb_name, type: 'text', placeholder: 'Name of suburb/town/city'
 
 %fieldset
   - HomeType.all.each do |ht|
