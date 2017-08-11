@@ -1,8 +1,10 @@
 namespace :geographic_area do
   desc 'TODO'
   task get_wunderground_data: :environment do
+    baseurl = 'http://api.wunderground.com/api/'
+
     Suburb.all.each do |s|
-      response = Faraday.get "http://api.wunderground.com/api/de9de20a26d90cbd/conditions/q/NZ/#{s.name}.json"
+      response = Faraday.get "#{baseurl}#{ENV['WUNDERGROUND_API_KEY']}/conditions/q/NZ/#{s.name}.json"
 
       data = JSON.parse(response.body)
 
