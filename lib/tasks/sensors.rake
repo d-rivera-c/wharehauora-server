@@ -18,9 +18,12 @@ namespace :sensors do
     interval = Rails.configuration.offline_timeframe
     interval = '48 hours' if interval.nil?
 
-    offline_sensors = Sensor.where('updated_at < current_timestamp - interval ?', interval)
-
+    offline_sensors = Sensor.where('offlinenotified = false and updated_at < current_timestamp - interval ?', interval)
     offline_sensors.each(&:set_offline)
+
+    # turn back on sensors that have come back online
+    online_sensors = Sensor.where('offlinenotified = true and updated_at > current_timestamp - interval ?', interval)
+    online_sensors.each(&:set_online)
   end
 end
 

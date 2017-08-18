@@ -38,6 +38,10 @@ class User < ActiveRecord::Base
   end
 
   def notify_offline(sensor)
-    UserMailer.offline_sensor_email(self, sensor.home.name, sensor.room.name).deliver_later
+    room = sensor.room unless sensor.room.nil?
+
+    roomname = room.nil? ? 'N/A' : room.name
+
+    UserMailer.offline_sensor_email(self, sensor.home.name, roomname).deliver_later
   end
 end

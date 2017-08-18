@@ -2,6 +2,7 @@ FactoryGirl.define do
   factory :sensor do
     node_id { rand 100..999 }
     home
+    room
   end
 
   factory :sensor_with_messages, parent: :sensor do
