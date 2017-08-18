@@ -1,0 +1,15 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>A sensor is offline</h1>
+
+    <p>
+      The sensor in <%= @homename %>, <%= @roomname %> has not been heard from for <%= Rails.configuration.offline_timeframe %>
+    </p>
+
+  </body>
+</html>

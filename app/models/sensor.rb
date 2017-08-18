@@ -23,4 +23,15 @@ class Sensor < ActiveRecord::Base
     return true if room_id.blank?
     room.home_id == home_id
   end
+
+  def set_offline
+    self.offlinenotified = true
+    home.owner.notify_offline(self) if save!
+  end
+
+  def set_online
+    self.offlinenotified = false
+
+    save!
+  end
 end

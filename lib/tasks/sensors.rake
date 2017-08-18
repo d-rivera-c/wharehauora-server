@@ -14,6 +14,14 @@ namespace :sensors do
   task fake: :environment do
     SensorsIngest.new.fake
   end
+  task checkoffline: :environment do
+    interval = Rails.configuration.offline_timeframe
+    interval = '48 hours' if interval.nil?
+
+    offline_sensors = Sensor.where('updated_at < current_timestamp - interval ?', interval)
+
+    offline_sensors.each(&:set_offline)
+  end
 end
 
 class SensorsIngest

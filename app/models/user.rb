@@ -36,4 +36,8 @@ class User < ActiveRecord::Base
   def janitor?
     role? 'janitor'
   end
+
+  def notify_offline(sensor)
+    UserMailer.offline_sensor_email(self, sensor.home.name, sensor.room.name).deliver_later
+  end
 end
