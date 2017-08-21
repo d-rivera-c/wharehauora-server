@@ -1,5 +1,5 @@
 namespace :geographic_area do
-  desc 'TODO'
+  desc 'Tasks for geographic areas'
   task get_wunderground_data: :environment do
     baseurl = 'http://api.wunderground.com/api/'
 
