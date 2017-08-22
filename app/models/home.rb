@@ -5,6 +5,8 @@ class Home < ActiveRecord::Base
   belongs_to :home_type
   belongs_to :suburb
 
+  has_one :mqtt_user
+
   has_many :rooms
   has_many :messages, through: :sensors
 
@@ -20,10 +22,11 @@ class Home < ActiveRecord::Base
   validates :name, presence: true
   validates :owner, presence: true
 
-  def find_or_create_sensor(node_id)
-    sensor = sensors.find_by(node_id: node_id)
-    sensor = Sensor.create!(home_id: id, node_id: node_id) unless sensor
-    sensor
+  def provision_mqtt!
+    ActiveRecord::Base.transaction do
+      self.mqtt_user = MqttUser.where(home: self).first_or_initialize
+      mqtt_user.provision!
+    end
   end
 
   def home_suburb_name

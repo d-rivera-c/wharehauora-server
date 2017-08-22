@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.3
--- Dumped by pg_dump version 9.6.3
+-- Dumped from database version 9.6.4
+-- Dumped by pg_dump version 9.6.4
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -222,7 +222,8 @@ CREATE TABLE mqtt_users (
     password character varying,
     provisioned_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    home_id integer
 );
 
 
@@ -543,7 +544,8 @@ CREATE TABLE sensors (
     updated_at timestamp without time zone NOT NULL,
     node_id integer NOT NULL,
     home_id integer NOT NULL,
-    messages_count integer
+    messages_count integer,
+    offlinenotified boolean DEFAULT false NOT NULL
 );
 
 
@@ -1139,6 +1141,14 @@ ALTER TABLE ONLY readings
 
 
 --
+-- Name: mqtt_users fk_rails_44263702dd; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY mqtt_users
+    ADD CONSTRAINT fk_rails_44263702dd FOREIGN KEY (home_id) REFERENCES homes(id);
+
+
+--
 -- Name: home_viewers fk_rails_491effc3a4; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1295,4 +1305,8 @@ INSERT INTO schema_migrations (version) VALUES ('20170801095409');
 INSERT INTO schema_migrations (version) VALUES ('20170804072223');
 
 INSERT INTO schema_migrations (version) VALUES ('20170810212853');
+
+INSERT INTO schema_migrations (version) VALUES ('20170812022839');
+
+INSERT INTO schema_migrations (version) VALUES ('20170817225235');
 
