@@ -33,13 +33,6 @@ class Home < ActiveRecord::Base
     end
   end
 
-  def provision_mqtt!
-    ActiveRecord::Base.transaction do
-      self.mqtt_user = MqttUser.where(home: self).first_or_initialize
-      mqtt_user.provision!
-    end
-  end
-
   def home_suburb_name
     suburb&.name
   end
