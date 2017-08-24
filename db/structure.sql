@@ -544,8 +544,7 @@ CREATE TABLE sensors (
     updated_at timestamp without time zone NOT NULL,
     node_id integer NOT NULL,
     home_id integer NOT NULL,
-    messages_count integer,
-    offlinenotified boolean DEFAULT false NOT NULL
+    messages_count integer
 );
 
 
@@ -1307,6 +1306,4 @@ INSERT INTO schema_migrations (version) VALUES ('20170804072223');
 INSERT INTO schema_migrations (version) VALUES ('20170810212853');
 
 INSERT INTO schema_migrations (version) VALUES ('20170812022839');
-
-INSERT INTO schema_migrations (version) VALUES ('20170817225235');
 
