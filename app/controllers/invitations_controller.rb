@@ -14,7 +14,7 @@ class InvitationsController < ApplicationController
       inviter: current_user,
       email: params[:invitation][:email]
     )
-    InvitationMailer.invitation_email(@invitation).deliver
+    InvitationMailer.invitation_email(@invitation).deliver_now
     redirect_to home_home_viewers_path(@home)
   end
 
@@ -44,6 +44,6 @@ class InvitationsController < ApplicationController
   end
 
   def set_invitation
-    @invitation = Invitation.includes(:home).find_by(token: params[:id])
+    @invitation = Invitation.find_by(token: params[:id])
   end
 end
